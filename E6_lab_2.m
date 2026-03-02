@@ -1,15 +1,17 @@
 function E6_lab_2()
-    r1 = 0.1875;
-    r2 = 0.75;
+    % Lawrence's Code:
+    %----------------------------------------------------------------------
+    r1 = 0.1875; % Bigger radius of the pulley
+    r2 = 0.75; % Smaller radius of the pulley
     wt = 3.02; % lb
-    cw1 = [31.5, 62.75, 29.75];
+    cw1 = [31.5, 62.75, 29.75]; % Position of the center weights in three trials.
     cw2 = [50.75, 61, 78.75];
     cw3 = [13, 62, 70.75];
     
-    w3 = [-95.5, 64, 116.6929];
+    w3 = [-95.5, 64, 116.6929]; % Position of the two pulleys.
     w4 = [94.5, 64, 116.7323];
     
-    wt1 = [1.6945; 2.432];
+    wt1 = [1.6945; 2.432]; % Weights of counterweights in trial 1-3
     wt2 = [2.6215; 3.4845];
     wt3 = [3.185; 3.4845];
 
@@ -39,12 +41,15 @@ function E6_lab_2()
         matrix = [lam3,lam4]; % Assemble the matrix, and solve for the system using the known constant weight. 
         tensions = matrix\[0;wt];% or we can use: tensions = inv(matrix)*[0;0;wt], as discussed on class.
     end
+    findTensions(cw1)
+    findTensions(cw2)
+    findTensions(cw3)
 
 
     function friction = findFriction(c, wt)
         t = findTensions(c);
-        f = abs(t - wt)*r2/r1 % Resistance
-        
+        friction = abs(t - wt)*r2/r1 % Resistance
     end
-    findFriction(cw1, wt1);
+    %----------------------------------------------------------------------
+    
 end
