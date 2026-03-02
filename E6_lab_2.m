@@ -1,5 +1,6 @@
 function E6_lab_2()
-    r = 0.1875;
+    r1 = 0.1875;
+    r2 = 0.75;
     wt = 3.02; % lb
     cw1 = [31.5, 62.75, 29.75];
     cw2 = [50.75, 61, 78.75];
@@ -8,14 +9,15 @@ function E6_lab_2()
     w3 = [-95.5, 64, 116.6929];
     w4 = [94.5, 64, 116.7323];
     
-    w3_1 = w3-cw1;
-    w4_1 = w4-cw1;
-    
+    wt1 = [1.6945; 2.432];
+    wt2 = [2.6215; 3.4845];
+    wt3 = [3.185; 3.4845];
+
     function new_Z = correctZ(gd, z)
-            new_gd = gd - r; % Calculate the new distance by substracting r.
+            new_gd = gd - r1; % Calculate the new distance by substracting r.
             alpha = atand(z/new_gd); % Calculate the angle of the smaller triangle.
             hyp = norm([new_gd, z]); % Calculate the hypotenuse based on the new distance and the original z.
-            beta = asind(r/hyp); % Calculate the angle between the large and the small triangles.
+            beta = asind(r1/hyp); % Calculate the angle between the large and the small triangles.
             theta = alpha + beta; % Summing the angles gets the angle of the larger triangle.
             new_Z = gd*tand(theta); % Calculate the opposite of the larger triangle, which is the corrected Z coord.
     end
@@ -38,7 +40,11 @@ function E6_lab_2()
         tensions = matrix\[0;wt];% or we can use: tensions = inv(matrix)*[0;0;wt], as discussed on class.
     end
 
-    findTensions(cw1)
-    findTensions(cw2)
-    findTensions(cw3)
+
+    function friction = findFriction(c, wt)
+        t = findTensions(c);
+        f = abs(t - wt)*r2/r1 % Resistance
+        
+    end
+    findFriction(cw1, wt1);
 end
