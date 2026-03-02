@@ -1,0 +1,23 @@
+r = 0.1875;
+cw = 3.02; % lb
+cw1 = [31.5, 62.75, 29.75];
+cw2 = [50.75, 61, 78.75];
+cw3 = [13, 62, 70.75];
+
+w3 = [-95.5, 64, 116.6929];
+w4 = [94.5, 64, 116.7323];
+
+w3_1 = w3-cw1;
+w4_1 = w4-cw1;
+
+function new_Z = correctZ(gd, z)
+        new_gd = gd - r; % Calculate the new distance by substracting r.
+        alpha = atand(z/new_gd); % Calculate the angle of the smaller triangle.
+        hyp = norm([new_gd, z]); % Calculate the hypotenuse based on the new distance and the original z.
+        beta = asind(r/hyp); % Calculate the angle between the large and the small triangles.
+        theta = alpha + beta; % Summing the angles gets the angle of the larger triangle.
+        new_Z = gd*tand(theta); % Calculate the opposite of the larger triangle, which is the corrected Z coord.
+end
+
+gd1_1 = norm([w3_1(1), w3_1(2)]);
+lam3_1 = correctZ(gd1_1, w3(3))
