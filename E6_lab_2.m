@@ -39,11 +39,12 @@ function E6_lab_2()
         lam3 = [lam3(1); lam3(3)];
         lam4 = [lam4(1); lam4(3)];
         matrix = [lam3,lam4]; % Assemble the matrix, and solve for the system using the known constant weight. 
-        tensions = matrix\[0;wt];% or we can use: tensions = inv(matrix)*[0;0;wt], as discussed on class.
+        t = matrix\[0;wt];% or we can use: tensions = inv(matrix)*[0;0;wt], as discussed on class.
+        tensions = [t(1) * lam3, t(2) * lam4]
     end
-    findTensions(cw1)
-    findTensions(cw2)
-    findTensions(cw3)
+    tensions_1 = findTensions(cw1)
+    tensions_2 = findTensions(cw2)
+    tensions_3 = findTensions(cw3)
     %----------------------------------------------------------------------
     function Mu = frictionCoefficient(T,W)
         %Defines a function which takes as input the tension force T and the
@@ -53,6 +54,13 @@ function E6_lab_2()
         f = abs(W-T)*(r2/r1); %friction force
         Mu = f/sqrt(R^2-f^2); %friction coefficient
     end
-    frictionCoefficient(findTensions(cw1), wt1)
+    frictionCoefficient(tensions_1(:,1), wt1(1))
+    frictionCoefficient(tensions_1(:,2), wt1(2))
+    frictionCoefficient(tensions_2(:,1), wt2(1))
+    frictionCoefficient(tensions_2(:,2), wt2(2))
+    frictionCoefficient(tensions_3(:,1), wt3(1))
+    frictionCoefficient(tensions_3(:,2), wt3(2))
+
+
 
 end
