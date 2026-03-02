@@ -3,8 +3,8 @@ function E6_lab_2()
     %----------------------------------------------------------------------
     r1 = 0.1875; % Bigger radius of the pulley
     r2 = 0.75; % Smaller radius of the pulley
-    wt = 3.02; % lb
-    cw1 = [31.5, 62.75, 29.75]; % Position of the center weights in three trials.
+    wt = 3.02; % Center weight in lb
+    cw1 = [31.5, 62.75, 29.75]; % Position of the center weight in three trials.
     cw2 = [50.75, 61, 78.75];
     cw3 = [13, 62, 70.75];
     
@@ -30,7 +30,7 @@ function E6_lab_2()
         gd = norm([x,y]); % Find the ground distance, which is the norm of x and y. 
         new_w = [w(1), w(2), correctZ(gd, w(3))]; % Correct Z using the correctZ function to find the corrected Z.
         T = new_w-c; % Find the corrected tension vector.
-        lam = T/norm(T); % Calculate the lambda by dividing the norm.
+        lam = T/norm(T); % Calculate the lambda by dividing by the norm.
     end    
     
     function tensions = findTensions(c)
@@ -46,19 +46,21 @@ function E6_lab_2()
     tensions_2 = findTensions(cw2)
     tensions_3 = findTensions(cw3)
     %----------------------------------------------------------------------
-    function Mu = frictionCoefficient(T_vec,W)
-        %Defines a function which takes as input the tension force T and the
-        %weight W as 2x1 vectors, and radii r1 and r2 as scalars
+    function mu = frictionCoefficient(T_vec,W)
+        %Defines a function which takes as input the tension force T as a
+        %2x1 vector, the weight as a positive scalar, and radii r1 & r2 as scalars.
         %Returns the friction coefficient Mu as a scalar.
         R = norm(-1*(T_vec+[0;-1*W])); %magnitude of resultant vector
         T = norm(T_vec); %magnitude of tension vector
         W = norm(W); %magnitude of weight vector
         f = abs(W-T)*(r2/r1); %friction force
-        Mu = f/sqrt(R^2-f^2); %friction coefficient
+        mu = f/sqrt(R^2-f^2); %friction coefficient
     end
     mus = [frictionCoefficient(tensions_1(:,1), wt1(1)), frictionCoefficient(tensions_1(:,2), wt1(2));
         frictionCoefficient(tensions_2(:,1), wt2(1)), frictionCoefficient(tensions_2(:,2), wt2(2));
         frictionCoefficient(tensions_3(:,1), wt3(1)), frictionCoefficient(tensions_3(:,2), wt3(2))]
-    m = mean(mus, "all")
-    s = std(mus, 0, "all")
+        %^creates a matrix of friction coefficients, with rows corresponding
+        %to trials 1-3 and columns corresponding to pulleys 1 & 2
+    meanMu = mean(mus, "all")
+    sdev = std(mus, 0, "all")
 end
