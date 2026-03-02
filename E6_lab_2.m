@@ -46,11 +46,13 @@ function E6_lab_2()
     tensions_2 = findTensions(cw2)
     tensions_3 = findTensions(cw3)
     %----------------------------------------------------------------------
-    function Mu = frictionCoefficient(T,W)
+    function Mu = frictionCoefficient(T_vec,W)
         %Defines a function which takes as input the tension force T and the
         %weight W as 2x1 vectors, and radii r1 and r2 as scalars
         %Returns the friction coefficient Mu as a scalar.
-        R = sqrt(T+W); %magnitude of resultant vector
+        R = norm(-1*(T_vec+[0;-1*W])); %magnitude of resultant vector
+        T = norm(T_vec); %magnitude of tension vector
+        W = norm(W); %magnitude of weight vector
         f = abs(W-T)*(r2/r1); %friction force
         Mu = f/sqrt(R^2-f^2); %friction coefficient
     end

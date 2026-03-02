@@ -1,16 +1,17 @@
 function E6_lab_2()
-    % Lawrence's Code: 
-    r1 = 0.1875;
-    r2 = 0.75;
+    % Lawrence's Code:
+    %----------------------------------------------------------------------
+    r1 = 0.1875; % Bigger radius of the pulley
+    r2 = 0.75; % Smaller radius of the pulley
     wt = 3.02; % lb
-    cw1 = [31.5, 62.75, 29.75];
+    cw1 = [31.5, 62.75, 29.75]; % Position of the center weights in three trials.
     cw2 = [50.75, 61, 78.75];
     cw3 = [13, 62, 70.75];
     
-    w3 = [-95.5, 64, 116.6929];
+    w3 = [-95.5, 64, 116.6929]; % Position of the two pulleys.
     w4 = [94.5, 64, 116.7323];
     
-    wt1 = [1.6945; 2.432];
+    wt1 = [1.6945; 2.432]; % Weights of counterweights in trial 1-3
     wt2 = [2.6215; 3.4845];
     wt3 = [3.185; 3.4845];
 
@@ -40,12 +41,20 @@ function E6_lab_2()
         matrix = [lam3,lam4]; % Assemble the matrix, and solve for the system using the known constant weight. 
         tensions = matrix\[0;wt];% or we can use: tensions = inv(matrix)*[0;0;wt], as discussed on class.
     end
-
-
-    function friction = findFriction(c, wt)
-        t = findTensions(c);
-        f = abs(t - wt)*r2/r1 % Resistance
-        
+    findTensions(cw1)
+    findTensions(cw2)
+    findTensions(cw3)
+    %----------------------------------------------------------------------
+    function Mu = frictionCoefficient(T_vec,W)
+        %Defines a function which takes as input the tension force T and the
+        %weight W as 2x1 vectors, and radii r1 and r2 as scalars
+        %Returns the friction coefficient Mu as a scalar.
+        R = norm(-1*(T_vec+[0;-1*W])); %magnitude of resultant vector
+        T = norm(T_vec); %magnitude of tension vector
+        W = norm(W_vec); %magnitude of weight vector
+        f = abs(W-T)*(r2/r1); %friction force
+        Mu = f/sqrt(R^2-f^2); %friction coefficient
     end
-    findFriction(cw1, wt1);
+    frictionCoefficient(findTensions(cw1), wt1)
+
 end
