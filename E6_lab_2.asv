@@ -42,14 +42,11 @@ function E6_lab_2()
         t = matrix\[0;wt];% or we can use: tensions = inv(matrix)*[0;0;wt], as discussed on class.
         tensions = [t(1) * lam3, t(2) * lam4];
     end
-    tensions_1 = findTensions(cw1);
-    tensions_2 = findTensions(cw2);
-    tensions_3 = findTensions(cw3);
+    tensions_1 = findTensions(cw1)
+    tensions_2 = findTensions(cw2)
+    tensions_3 = findTensions(cw3)
 
-    tensionMagnitudes = [norm(tensions_1(:,1)) norm(tensions_1(:,2)); ...
-        norm(tensions_2(:,1)) norm(tensions_2(:,2)); ...
-        norm(tensions_3(:,1)) norm(tensions_3(:,2))]
-        %create a matrix of tension values, with the columns corresponding to pulleys 2 and 3, and with the rows corresponding to trials 1-3
+    tensionMagnitudes = [norm(tensions_1(:,1)) norm(tensions_1(:,2)); norm(tensions_2(:,1)) norm(tensio)]
     %----------------------------------------------------------------------
     function mu = frictionCoefficient(T_vec,W)
         %Defines a function which takes as input the tension force T as a
