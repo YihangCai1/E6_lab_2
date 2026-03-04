@@ -49,7 +49,8 @@ function E6_lab_2()
     tensionMagnitudes = [norm(tensions_1(:,1)) norm(tensions_1(:,2)); ...
         norm(tensions_2(:,1)) norm(tensions_2(:,2)); ...
         norm(tensions_3(:,1)) norm(tensions_3(:,2))]
-        %create a matrix of tension values, with the columns corresponding to pulleys 2 and 3, and with the rows corresponding to trials 1-3
+        %^create a matrix of tension values, with the columns corresponding
+        %to pulleys 2 and 3, and with the rows corresponding to trials 1-3
     %----------------------------------------------------------------------
     function mu = frictionCoefficient(T_vec,W)
         %Defines a function which takes as input the tension force T as a
